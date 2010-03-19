@@ -12,7 +12,7 @@ namespace mds
 	class Msg
 	{
 	public:
-		struct less;
+		struct compare;
 		typedef time_t Time;
 	public:
 		Msg(Object* reciever, const Message& message, Time recieveTime);
@@ -25,12 +25,12 @@ namespace mds
 		Time recieveTime_;
 	};
 
-	struct Msg::less
+	struct Msg::compare
 		: public std::binary_function<Msg, Msg, bool>
 	{
 		bool operator()(const Msg& lhs, const Msg& rhs) const
 		{	
-			return lhs.get_recieve_time() < rhs.get_recieve_time();
+			return lhs.get_recieve_time() > rhs.get_recieve_time();
 		}
 	};
 
@@ -38,11 +38,12 @@ namespace mds
 	{
 		friend class Object;
 
-		typedef std::priority_queue<Msg, std::vector<Msg>, Msg::less> MessageQueue;
+		typedef std::priority_queue<Msg, std::vector<Msg>, Msg::compare> MessageQueue;
 		typedef std::set<Object*> Objects;
 	public:
 		MessageSystem();
 		void Loop();
+		void PostSystemMessage(const Message& message, unsigned delay);
 		virtual ~MessageSystem();
 
 		//message will not send to object if returned value is true

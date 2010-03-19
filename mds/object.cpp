@@ -16,4 +16,8 @@ namespace mds
 	{
 		messageSystem_.PostMessage(this, message, delay);
 	}
+	void Object::PostSystemMessage(const Message &message, unsigned int delay)
+	{
+		messageSystem_.PostSystemMessage(message, delay);
+	}
 }

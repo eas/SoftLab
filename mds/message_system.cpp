@@ -69,7 +69,10 @@ namespace mds
 			}
 		}
 	}
-
+	void MessageSystem::PostSystemMessage(const Message &message, unsigned int delay)
+	{
+		PostMessage(NULL, message, delay);
+	}
 	MessageSystem::~MessageSystem()
 	{
 		ClearQueue();
@@ -90,7 +93,7 @@ namespace mds
 	}
 	void MessageSystem::PostMessage(Object* reciever, const Message &message, unsigned delay)
 	{
-		Msg msg(reciever, message, delay*clock()*CLOCKS_PER_SEC/1000);
+		Msg msg(reciever, message, clock()+delay*CLOCKS_PER_SEC/1000);
 		messageQueue_.push(msg);
 	}
 	void MessageSystem::ClearQueue()
