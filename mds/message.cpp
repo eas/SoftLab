@@ -1,4 +1,7 @@
+#include "memory_leaks_detection.h"
+
 #include "message.h"
+
 
 
 namespace mds

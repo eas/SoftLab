@@ -173,6 +173,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\memory_leaks_detection.h"
+				>
+			</File>
+			<File
 				RelativePath=".\message.h"
 				>
 			</File>

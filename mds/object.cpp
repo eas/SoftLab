@@ -1,5 +1,10 @@
+#include "memory_leaks_detection.h"
+
+
 #include "object.h"
 #include "message_system.h"
+
+
 
 namespace mds
 {

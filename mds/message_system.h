@@ -46,6 +46,7 @@ namespace mds
 		void PostSystemMessage(const Message& message, unsigned delay);
 		virtual ~MessageSystem();
 
+	protected:
 		//message will not send to object if returned value is true
 		virtual bool PreTranslate(const Message& message);
 
@@ -59,7 +60,7 @@ namespace mds
 		virtual void DeletingMessage(const Message& message); // override, if message contains dynamically allocated memory
 
 		//called if there is no message which must be delivered
-		virtual void IdleProcessing() = 0;
+		virtual void IdleProcessing();
 	private:
 		void RegisterObject(Object* object);
 		void UnregisterObject(Object* object);

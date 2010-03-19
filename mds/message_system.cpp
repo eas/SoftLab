@@ -1,8 +1,12 @@
+#include "memory_leaks_detection.h"
+
+
 #include <assert.h>
 #include <time.h>
 #include "message.h"
 #include "object.h"
 #include "message_system.h"
+
 
 
 namespace mds
@@ -68,6 +72,7 @@ namespace mds
 				IdleProcessing();
 			}
 		}
+		ClearQueue();
 	}
 	void MessageSystem::PostSystemMessage(const Message &message, unsigned int delay)
 	{
@@ -75,7 +80,7 @@ namespace mds
 	}
 	MessageSystem::~MessageSystem()
 	{
-		ClearQueue();
+		assert( messageQueue_.empty() );
 	}
 
 	void MessageSystem::RegisterObject(Object* object)
