@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mds", "mds\mds.vcproj", "{2825CDFB-059E-4007-918C-E5DA2D09BA6B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mds_test_timer", "mds_test_timer\mds_test_timer.vcproj", "{035F411B-D9AA-470D-B375-BBBC9171A2CA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2825CDFB-059E-4007-918C-E5DA2D09BA6B} = {2825CDFB-059E-4007-918C-E5DA2D09BA6B}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2825CDFB-059E-4007-918C-E5DA2D09BA6B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2825CDFB-059E-4007-918C-E5DA2D09BA6B}.Debug|Win32.Build.0 = Debug|Win32
+		{2825CDFB-059E-4007-918C-E5DA2D09BA6B}.Release|Win32.ActiveCfg = Release|Win32
+		{2825CDFB-059E-4007-918C-E5DA2D09BA6B}.Release|Win32.Build.0 = Release|Win32
+		{035F411B-D9AA-470D-B375-BBBC9171A2CA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{035F411B-D9AA-470D-B375-BBBC9171A2CA}.Debug|Win32.Build.0 = Debug|Win32
+		{035F411B-D9AA-470D-B375-BBBC9171A2CA}.Release|Win32.ActiveCfg = Release|Win32
+		{035F411B-D9AA-470D-B375-BBBC9171A2CA}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
