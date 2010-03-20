@@ -32,51 +32,42 @@ namespace mds
 
 
 	MessageSystem::MessageSystem()
+		: isLoopFinished_(true)
 	{
 	}
 	void MessageSystem::Loop()
 	{
-#pragma warning( disable : 4127 ) // warning C4127: conditional expression is constant
-		while( true )
-#pragma warning( default : 4127 )
+		try
 		{
-			if( !messageQueue_.empty() && messageQueue_.top().get_recieve_time() <= clock() )
+			isLoopFinished_ = false;
+			while( !isLoopFinished_ )
 			{
-				Msg msg = messageQueue_.top();
-				messageQueue_.pop();
-
-				if( NULL == msg.get_reciever() )
+				if( !messageQueue_.empty() && messageQueue_.top().get_recieve_time() <= clock() )
 				{
-					if( SystemMessageTranslate(msg.get_message()) )
-					{
-						break;
-					}
+					Msg msg = messageQueue_.top();
+					messageQueue_.pop();
+					MessageProcessing(msg.get_reciever(), msg.get_message());
 				}
 				else
 				{
-					if( !PreTranslate(msg.get_message()) )
-					{
-						if( 1 == objects_.count(msg.get_reciever()) )
-						{
-							msg.get_reciever()->ProcessMessage(msg.get_message());
-						}
-						else
-						{
-							NonexistentObjectTranslate(msg.get_message());
-						}
-					}
+					IdleProcessing();
 				}
 			}
-			else
-			{
-				IdleProcessing();
-			}
+		}
+		catch(...)
+		{
+			ClearQueue();
+			throw;
 		}
 		ClearQueue();
 	}
 	void MessageSystem::PostSystemMessage(const Message &message, unsigned int delay)
 	{
 		PostMessage(NULL, message, delay);
+	}
+	void MessageSystem::SendSystemMessage(const Message& message)
+	{
+		SendMessage(NULL, message);
 	}
 	MessageSystem::~MessageSystem()
 	{
@@ -96,10 +87,14 @@ namespace mds
 		assert( 1 == objects_.count(object) );
 		objects_.erase(object);
 	}
-	void MessageSystem::PostMessage(Object* reciever, const Message &message, unsigned delay)
+	void MessageSystem::PostMessage(Object* reciever, const Message& message, unsigned delay)
 	{
 		Msg msg(reciever, message, clock()+delay*CLOCKS_PER_SEC/1000);
 		messageQueue_.push(msg);
+	}
+	void MessageSystem::SendMessage(Object* reciever, const Message& message)
+	{
+		MessageProcessing(reciever, message);
 	}
 	void MessageSystem::ClearQueue()
 	{
@@ -107,6 +102,30 @@ namespace mds
 		{
 			DeletingMessage( messageQueue_.top().get_message() );
 			messageQueue_.pop();
+		}
+	}
+	void MessageSystem::MessageProcessing(Object* reciever, const Message& message)
+	{
+		if( NULL == reciever )
+		{
+			if( SystemMessageTranslate(message) )
+			{
+				isLoopFinished_ = true;
+			}
+		}
+		else
+		{
+			if( !PreTranslate(message) )
+			{
+				if( 1 == objects_.count(reciever) )
+				{
+					reciever->ProcessMessage(message);
+				}
+				else
+				{
+					NonexistentObjectTranslate(message);
+				}
+			}
 		}
 	}
 

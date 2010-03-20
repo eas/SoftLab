@@ -48,7 +48,8 @@ public:
 		  period_(period)
 	{
 	}
-	virtual void ProcessMessage(const mds::Message& message)
+protected:
+	virtual bool ProcessMessage(const mds::Message& message)
 	{
 		delete reinterpret_cast<int*>(message.get_data());
 		static int i=0;
@@ -61,6 +62,7 @@ public:
 		GetSystemTime(&time);
 		std::cout << "Clock" << number_ << " call# " << i <<"\t" << time.wHour+6 << " " << time.wMinute << " " << time.wSecond << " " << std::endl;
 		this->Post( mds::Message(0, new int(number_*100+i)), period_ );
+		return true;
 	}
 private:
 	int number_;
@@ -70,6 +72,36 @@ private:
 	static int number;
 };
 int Clock::number = 0;
+
+class TestSend
+	: public mds::Object
+{
+public:
+	TestSend(mds::MessageSystem& messageSystem)
+		: Object(messageSystem),
+		  number_(++number)
+	{
+	}
+protected:
+	virtual bool ProcessMessage(const mds::Message& message)
+	{
+		std::cout << "In TestSend #" << number_ << " ProcessMessage, message_id = " << message.get_message_id() << std::endl;
+		if( message.get_message_id() > 4 )
+		{
+			SendSystemMessage(mds::Message(0, NULL));
+		}
+		else
+		{
+			Send(mds::Message(message.get_message_id()+1, NULL));
+		}
+		return true;
+	}
+private:
+	int number_;
+private:
+	static int number;
+};
+int TestSend::number = 0;
 
 
 int main()
@@ -86,6 +118,14 @@ int main()
 		clock2.Post(mds::Message(0, NULL), 0);
 		messageSystem.Loop();
 		//messageSystem.ClearQueue();
+	}
+	{
+		ClockMessageSystem messageSystem;
+		TestSend testSend1(messageSystem);
+		TestSend testSend2(messageSystem);
+		testSend1.Post(mds::Message(0, NULL), 100);
+		testSend2.Post(mds::Message(0, NULL), 300);
+		messageSystem.Loop();
 	}
 	_CrtDumpMemoryLeaks();
 	return 0;

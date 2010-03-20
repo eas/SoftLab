@@ -43,6 +43,7 @@ namespace mds
 	public:
 		MessageSystem();
 		void Loop();
+		void SendSystemMessage(const Message& message);
 		void PostSystemMessage(const Message& message, unsigned delay);
 		virtual ~MessageSystem();
 
@@ -65,7 +66,10 @@ namespace mds
 		void RegisterObject(Object* object);
 		void UnregisterObject(Object* object);
 		void PostMessage(Object* reciever, const Message& message, unsigned delay);
+		void SendMessage(Object* reciever, const Message& message);
 		void ClearQueue();
+
+		void MessageProcessing(Object* reciever, const Message& message);
 	private:
 		MessageSystem(const MessageSystem&);
 		MessageSystem& operator=(const MessageSystem&);
@@ -73,5 +77,6 @@ namespace mds
 	private:
 		MessageQueue messageQueue_;
 		Objects objects_;
+		bool isLoopFinished_;
 	};
 }
