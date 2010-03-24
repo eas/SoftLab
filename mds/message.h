@@ -4,8 +4,10 @@ namespace mds
 {
 	class Message
 	{
-		typedef int MessageId;
+	public:
 		typedef void* Data;
+		typedef int MessageId;
+		
 	public:
 		Message(MessageId messageId, Data data);
 

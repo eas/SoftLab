@@ -43,8 +43,8 @@ namespace mds
 	public:
 		MessageSystem();
 		void Loop();
-		void SendSystemMessage(const Message& message);
-		void PostSystemMessage(const Message& message, unsigned delay);
+		void SendMessage(const Message& message);
+		void PostMessage(const Message& message, unsigned delay);
 		virtual ~MessageSystem();
 
 	protected:
@@ -52,7 +52,7 @@ namespace mds
 		virtual bool PreTranslate(const Message& message);
 
 		//end loop if returned value is true
-		virtual bool SystemMessageTranslate(const Message& message) = 0; // = 0 because we need to stop loop, how must we do it?
+		virtual bool SystemMessageProcess(const Message& message) = 0; // = 0 because we need to stop loop, how must we do it?
 
 		//called if reciever has died, override if you need some special activity in this situation
 		virtual void NonexistentObjectTranslate(const Message& message); // require overriding, if message contains dynamically allocated memory
@@ -65,8 +65,8 @@ namespace mds
 	private:
 		void RegisterObject(Object* object);
 		void UnregisterObject(Object* object);
-		void PostMessage(Object* reciever, const Message& message, unsigned delay);
-		void SendMessage(Object* reciever, const Message& message);
+		void PostMessageTo(Object* reciever, const Message& message, unsigned delay);
+		void SendMessageTo(Object* reciever, const Message& message);
 		void ClearQueue();
 
 		void MessageProcessing(Object* reciever, const Message& message);

@@ -20,13 +20,14 @@ public:
 	{
 	}
 protected:
-	virtual bool SystemMessageTranslate(const mds::Message&)
+	virtual bool SystemMessageProcess(const mds::Message&)
 	{
 		return true;
 	}
 	virtual void IdleProcessing()
 	{
 		int i=2;
+		++i;
 	}
 	virtual void DeletingMessage(const mds::Message& message)
 	{

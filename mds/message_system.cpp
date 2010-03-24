@@ -61,13 +61,13 @@ namespace mds
 		}
 		ClearQueue();
 	}
-	void MessageSystem::PostSystemMessage(const Message &message, unsigned int delay)
+	void MessageSystem::PostMessage(const Message &message, unsigned int delay)
 	{
-		PostMessage(NULL, message, delay);
+		PostMessageTo(NULL, message, delay);
 	}
-	void MessageSystem::SendSystemMessage(const Message& message)
+	void MessageSystem::SendMessage(const Message& message)
 	{
-		SendMessage(NULL, message);
+		SendMessageTo(NULL, message);
 	}
 	MessageSystem::~MessageSystem()
 	{
@@ -87,12 +87,12 @@ namespace mds
 		assert( 1 == objects_.count(object) );
 		objects_.erase(object);
 	}
-	void MessageSystem::PostMessage(Object* reciever, const Message& message, unsigned delay)
+	void MessageSystem::PostMessageTo(Object* reciever, const Message& message, unsigned delay)
 	{
 		Msg msg(reciever, message, clock()+delay*CLOCKS_PER_SEC/1000);
 		messageQueue_.push(msg);
 	}
-	void MessageSystem::SendMessage(Object* reciever, const Message& message)
+	void MessageSystem::SendMessageTo(Object* reciever, const Message& message)
 	{
 		MessageProcessing(reciever, message);
 	}
@@ -108,7 +108,7 @@ namespace mds
 	{
 		if( NULL == reciever )
 		{
-			if( SystemMessageTranslate(message) )
+			if( SystemMessageProcess(message) )
 			{
 				isLoopFinished_ = true;
 			}

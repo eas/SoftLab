@@ -1,4 +1,11 @@
+#include <fstream>
+#include <assert.h>
 #include "2d_array.h"
+#include "map.h"
+
+#include "game.h"
+#include "enemy.h"
+#include "hero.h"
 
 int Test()
 {
@@ -15,5 +22,12 @@ int Test()
 int main()
 {
 	Test();
+	game::Map map;
+	std::fstream ifs( "my_map.txt", std::ios::in );
+	assert( !ifs.bad() );
+	ifs >> map;
+	std::fstream ofs( "my_map.buk", std::ios::out );
+	ofs << map;
+
 	return 0;
 }

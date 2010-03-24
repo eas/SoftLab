@@ -175,7 +175,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\enemy.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\game.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\hero.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\map.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\movable_object.cpp"
 				>
 			</File>
 		</Filter>
@@ -186,6 +206,46 @@
 			>
 			<File
 				RelativePath=".\2d_array.h"
+				>
+			</File>
+			<File
+				RelativePath=".\2d_array_test.h"
+				>
+			</File>
+			<File
+				RelativePath=".\enemy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\game.h"
+				>
+			</File>
+			<File
+				RelativePath=".\hero.h"
+				>
+			</File>
+			<File
+				RelativePath=".\map.h"
+				>
+			</File>
+			<File
+				RelativePath=".\messages.h"
+				>
+			</File>
+			<File
+				RelativePath=".\movable_object.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="console"
+			>
+			<File
+				RelativePath=".\console.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\console.h"
 				>
 			</File>
 		</Filter>

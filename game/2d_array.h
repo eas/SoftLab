@@ -88,7 +88,15 @@ namespace ns_2d
 			assert(coords.get_y()<nRows_);
 			assert(coords.get_x()<nColumns_);
 			return array_[coords.get_y()*nColumns_+coords.get_x()];
-	}
+		}
+		unsigned GetNRows() const
+		{
+			return nRows_;
+		}
+		unsigned GetNColumns() const
+		{
+			return nColumns_;
+		}
 	private:
 		std::vector<T> array_;
 		unsigned nRows_;
