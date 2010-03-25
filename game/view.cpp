@@ -30,6 +30,8 @@ namespace game
 	{
 		//TODO:
 		static Map oldMap;
+
+
 		const Map& map = game_.get_map();
 		for( short i=0; i < map.get_n_rows(); ++i )
 		{
@@ -39,9 +41,15 @@ namespace game
 				Console::PutChar(symbols_[map(i, j)]);
 			}
 		}
-		Coords heroCoords = game_.get_heroes()[0]->get_coords();
-		Console::GotoXY( heroCoords.get_x()+1, heroCoords.get_y()+1 );
+		Coords coords = game_.get_heroes()[0]->get_coords();
+		Console::GotoXY( coords.get_x()+1, coords.get_y()+1 );
 		Console::PutChar( '$' );
+		for( Game::Enemies::const_iterator iter = game_.get_enemies().begin(); iter != game_.get_enemies().end(); ++iter )
+		{
+			coords = (*iter)->get_coords();
+			Console::GotoXY( coords.get_x()+1, coords.get_y()+1 );
+			Console::PutChar( '@' );
+		}
 		
 	}
 }

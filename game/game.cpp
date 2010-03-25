@@ -42,6 +42,14 @@ namespace game
 		Coords coords;
 		file >> coords;
 		heroes_.push_back( new Hero(*this, coords) );
+
+		unsigned nEnemies;
+		file >> nEnemies;
+		for( unsigned i = 0; i < nEnemies; ++i )
+		{
+			file >> coords;
+			enemies_.push_back( new Enemy(*this, coords) );
+		}
 	}
 
 	bool Game::SystemMessageProcess(const mds::Message& message)

@@ -11,6 +11,6 @@ namespace game
 	}
 	Coords Enemy::DoMove()
 	{
-		return Coords();
+		return get_coords();
 	}
 }
