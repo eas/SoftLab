@@ -7,6 +7,8 @@
 #include "enemy.h"
 #include "hero.h"
 
+#include "console.h"
+
 int Test()
 {
 	ns_2d::Array<int> my_array1, my_array2(5, 5), my_array3(5, 5, 10);
@@ -21,13 +23,28 @@ int Test()
 
 int main()
 {
-	Test();
-	game::Map map;
-	std::fstream ifs( "my_map.txt", std::ios::in );
-	assert( !ifs.bad() );
-	ifs >> map;
-	std::fstream ofs( "my_map.buk", std::ios::out );
-	ofs << map;
+	//Test();
+	//game::Map map;
+	//std::fstream ifs( "my_map.txt", std::ios::in );
+	//assert( !ifs.bad() );
+	//ifs >> map;
+	//std::fstream ofs( "my_map.buk", std::ios::out );
+	//ofs << map;
+	//Console::PutChar('1');
+	//Console::PutChar('2');
+	//Console::GotoXY(5, 5);
+	//Console::PutChar('3');
+	//while( !Console::IsKeyPressed() )
+	//{
+	//}
+	//int ch = Console::GetPressedKey();
+	//Console::GotoXY(6, 5);
+	//Console::PutChar(ch);
+
+	game::Game game;
+	game::View view(game);
+	game.LoadMap("my_map.txt");
+	game.Start();
 
 	return 0;
 }

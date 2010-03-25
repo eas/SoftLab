@@ -42,11 +42,10 @@ namespace mds
 		typedef std::set<Object*> Objects;
 	public:
 		MessageSystem();
+		virtual ~MessageSystem();
 		void Loop();
 		void SendMessage(const Message& message);
 		void PostMessage(const Message& message, unsigned delay);
-		virtual ~MessageSystem();
-
 	protected:
 		//message will not send to object if returned value is true
 		virtual bool PreTranslate(const Message& message);

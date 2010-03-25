@@ -3,21 +3,19 @@
 class Console // has only static methods
 {
 public:
-	typedef int Key;
-public:
 	static bool IsKeyPressed();
-	static Key GetPressedKey();
-	static void GotoXY(unsigned x, unsigned y);
-	static void Write(char ch);
+	static int GetPressedKey();
+	static int GotoXY(short x, short y);
+	static void PutChar(int ch);
 private:
 	Console();
 };
 
 namespace keys
 {
-	const Console::Key esc = 27;
-	const Console::Key right = 1;
-	const Console::Key left = 2;
-	const Console::Key down = 3;
-	const Console::Key up = 4;
+	const int esc = 27;
+	const int down = -77; //right = 
+	const int up = -75;	//left =
+	const int right = -80;
+	const int left = -72;
 }

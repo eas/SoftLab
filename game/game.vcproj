@@ -198,6 +198,10 @@
 				RelativePath=".\movable_object.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\view.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -234,6 +238,10 @@
 			</File>
 			<File
 				RelativePath=".\movable_object.h"
+				>
+			</File>
+			<File
+				RelativePath=".\view.h"
 				>
 			</File>
 		</Filter>

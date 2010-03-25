@@ -6,7 +6,7 @@
 namespace game
 {
 	Enemy::Enemy(Game& game, const Coords& coords)
-		: MovableObject(game, coords)
+		: Super(game, coords)
 	{
 	}
 	Coords Enemy::DoMove()

@@ -1,21 +1,33 @@
+#include <wtypes.h>
+#include <wincon.h>
+#include <conio.h>
+
 #include "console.h"
 
 bool Console::IsKeyPressed()
 {
-	return false;
+
+	return 0 != _kbhit();
 }
 
-Console::Key Console::GetPressedKey()
+int Console::GetPressedKey()
 {
-	return 0;
+	int ch = _getch();
+
+	if (ch == 0 || ch == 224) // extended code
+		return - _getch();
+
+	return ch;}
+
+BOOL Console::GotoXY(short x, short y)
+{
+	COORD pos = { x, y };
+
+	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	return SetConsoleCursorPosition(hStdOut, pos);
 }
 
-void Console::GotoXY(unsigned int x, unsigned int y)
+void Console::PutChar(int ch)
 {
-	x, y;
-}
-
-void Console::Write(char ch)
-{
-	ch;
+	_putch(ch);
 }

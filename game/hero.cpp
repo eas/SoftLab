@@ -7,13 +7,25 @@
 namespace game
 {
 	Hero::Hero(Game& game, const Coords& coords)
-		: MovableObject(game, coords),
+		: Super(game, coords),
 		  direction_(0, 0)
 	{
 	}
+
+	//TODO: void DoMove()
 	Coords Hero::DoMove()
 	{
-		return Coords();
+		Post( mds::Message(M_MOVE, NULL), period );
+		Coords temp = get_coords() + direction_;
+		if( Map::None == game_.get_map()[temp] )
+		{
+			return get_coords() + direction_;
+		}
+		else
+		{
+			direction_ = Coords(0, 0);
+			return get_coords();
+		}
 	}
 
 	bool Hero::ProcessMessage(const mds::Message& message)

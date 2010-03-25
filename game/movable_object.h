@@ -18,8 +18,10 @@ namespace game
 		virtual Coords DoMove() = 0;	// returned value must be correct
 	private:
 		void Move();
-	private:
+
+	protected:
 		Game& game_;
+	private:
 		Coords coords_;
 	};
 }

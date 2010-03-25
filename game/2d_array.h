@@ -89,11 +89,11 @@ namespace ns_2d
 			assert(coords.get_x()<nColumns_);
 			return array_[coords.get_y()*nColumns_+coords.get_x()];
 		}
-		unsigned GetNRows() const
+		unsigned get_n_rows() const
 		{
 			return nRows_;
 		}
-		unsigned GetNColumns() const
+		unsigned get_n_columns() const
 		{
 			return nColumns_;
 		}

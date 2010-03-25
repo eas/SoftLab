@@ -7,7 +7,7 @@
 namespace game
 {
 	MovableObject::MovableObject(Game& game, const Coords& coords)
-		: mds::Object(game),
+		: Super(game),
 		  game_(game),
 		  coords_(coords)
 	{

@@ -22,6 +22,30 @@ namespace game
 		return y_;
 	}
 
+	Coords& Coords::operator+=(const Coords& other)
+	{
+		x_ += other.x_;
+		y_ += other.y_;
+		return *this;
+	}
+	Coords& Coords::operator-=(const Coords& other)
+	{
+		x_ -= other.x_;
+		y_ -= other.y_;
+		return *this;
+	}
+	Coords Coords::operator+(const Coords& other) const
+	{
+		Coords temp(*this);
+		temp += other;
+		return temp;
+	}
+	Coords Coords::operator-(const Coords& other) const
+	{
+		Coords temp(*this);
+		temp -= other;
+		return temp;
+	}
 	Map::Map()
 	{
 	}
@@ -45,24 +69,45 @@ namespace game
 	{
 		return map_(row, column);
 	}
-
+	const Map::MapCell& Map::operator()(unsigned row, unsigned column) const
+	{
+		return map_(row, column);
+	}
 	bool Map::CheckBoundary(const Coords& coords) const
 	{
-		return (coords.get_y() < map_.GetNRows()) && (coords.get_x() < map_.GetNColumns());
+		return (coords.get_y() < map_.get_n_rows()) && (coords.get_x() < map_.get_n_columns());
+	}
+
+	unsigned Map::get_n_rows() const
+	{
+		return map_.get_n_rows();
+	}
+	unsigned Map::get_n_columns() const
+	{
+		return map_.get_n_columns();
 	}
 
 	std::istream& operator>>(std::istream& is, Map::MapCell& cell)
 	{
 		int temp;
 		is >> temp;
-		cell = static_cast<Map::MapCell>(temp);
+		if( 0 == temp )
+			cell = Map::None;
+		else
+			cell = Map::Wall;
 		return is;
 	}
-	std::ostream& operator<<(std::ostream& os, const Map::MapCell& cell)
+	//std::ostream& operator<<(std::ostream& os, const Map::MapCell& cell)
+	//{
+	//	os << static_cast<int>(cell);
+	//	os << " ";
+	//	return os;
+	//}
+
+	std::istream& operator>>(std::istream& is, Coords& coords)
 	{
-		os << static_cast<int>(cell);
-		os << " ";
-		return os;
+		is >> coords.x_ >> coords.y_;
+		return is;
 	}
 
 	std::istream& operator>>(std::istream& is, Map& map)
@@ -79,13 +124,14 @@ namespace game
 				is >> temp(i, j);
 			}
 		}
+
 		map.map_.Swap(temp);
 		return is;
 	}
 	std::ostream& operator<<(std::ostream& os, const Map& map)
 	{
-		unsigned nRows = map.map_.GetNRows();
-		unsigned nColumns = map.map_.GetNColumns();
+		unsigned nRows = map.map_.get_n_rows();
+		unsigned nColumns = map.map_.get_n_columns();
 		os << nRows << " " << nColumns << std::endl;
 		for( unsigned i=0; i<nRows; ++i )
 		{

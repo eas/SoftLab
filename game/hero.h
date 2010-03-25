@@ -11,7 +11,7 @@ namespace game
 	{
 		typedef MovableObject Super;
 	public:
-		typedef enum { up, left, down, right, none } Direction;
+		enum Direction { up, left, down, right, none };
 	public:
 		Hero(Game& game, const Coords& coords);
 	protected:
@@ -20,5 +20,8 @@ namespace game
 
 	private:
 		Coords direction_;
+
+	private:
+		static const unsigned period = 500;
 	};
 }
